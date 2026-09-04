@@ -1,3 +1,4 @@
+
 import {Node} from './node.js'
 
 class Tree{
@@ -10,44 +11,31 @@ class Tree{
 
     
     sort(arr){
-        if (arr.length<=1) return
-        let left = 0
-        let right = arr.length
-        let mid = Math.floor((left+right)/2)
-        let leftArr = arr.slice(left,mid)
-        console.log(leftArr)
-        let rightArr = arr.slice(mid,right)
-        console.log(rightArr)
-        let result = []
-        for(let i = 0;i<leftArr.length;i++){
-        for(let j = 0;j <rightArr.length;j++)
+        const sorted = [...arr].sort((a,b)=>a-b)
+        return [...new Set(sorted)]
+    }
+
+
+    buildTree(arr,start,end){
         
+        if(start>end){
+                return null
         }
-        console.log(arr)
-       return result
+        let mid = Math.floor((start+end)/2)
+        let node = new Node(arr[mid])
+        let leftTree = this.buildTree(arr,start,mid-1)
+        let rightTree = this.buildTree(arr,mid+1,end)
+        node.left = leftTree
+        node.right = rightTree
+         
+         
+        return node
     }
 
+   
 
-    buildTree(arr){
-        let start = 0
-        let end = arr.length-1
-        let mid = (start+end)/2
-        let leftNode = arr.slice(start,mid-1)
-        let rightNode = arr.slice(mid,end)
-        this.root = new Node(mid,leftNode,rightNode)
-    }
 }
 
-
-// const prettyPrint = (node, prefix = '', isLeft = true) => {
-//   if (node === null || node === undefined) {
-//     return;
-//   }
-
-//   prettyPrint(node.right, `${prefix}${isLeft ? '│   ' : '    '}`, false);
-//   console.log(`${prefix}${isLeft ? '└── ' : '┌── '}${node.data}`);
-//   prettyPrint(node.left, `${prefix}${isLeft ? '    ' : '│   '}`, true);
-// }
 
 
 
