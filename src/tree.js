@@ -31,8 +31,32 @@ class Tree{
          
         return node
     }
+    
+    includes(value){
+       
+       let root = this.root
+       while (root !==null){
+        
+        if (root.data== value){
+            return true
+        }
+       else if (value>root.data){
+        root = root.right
+       }
 
+       else if (value<root.data){
+        root = root.left
+       }
+       
+       
+       }
+       return false
+    }
+    insert(value){
+        
+    }
    
+    
 
 }
 

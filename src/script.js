@@ -1,6 +1,6 @@
 import { Tree } from "./tree.js";
 
-let testArr = [1, 2, 5];
+let testArr = [1, 2, 5,7,6,3,4];
 
 let testClass = new Tree(testArr);
 let sortedArr = testClass.sort(testArr);
@@ -17,5 +17,7 @@ let prettyPrint = (node, prefix = "", isLeft = true) => {
 };
 let rootNode =testClass.buildTree(sortedArr, 0, sortedArr.length-1);
 testClass.root = rootNode
+console.log(testClass.root)
 
 prettyPrint(testClass.root);
+console.log(testClass.includes())
