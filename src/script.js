@@ -18,6 +18,9 @@ let prettyPrint = (node, prefix = "", isLeft = true) => {
 let rootNode =testClass.buildTree(sortedArr, 0, sortedArr.length-1);
 testClass.root = rootNode
 console.log(testClass.root)
-
+ testClass.insert(88)
+ testClass.insert(9)
+ testClass.insert(0)
 prettyPrint(testClass.root);
-console.log(testClass.includes())
+console.log(testClass.includes(2))
+

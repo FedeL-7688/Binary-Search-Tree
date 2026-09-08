@@ -285,6 +285,8 @@
     "wsl-utils": "^0.1.0"
   },
   "scripts": {
+    "start": "webpack serve",
+    "build": "webpack",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

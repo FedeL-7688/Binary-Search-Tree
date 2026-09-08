@@ -35,7 +35,7 @@ class Tree{
     includes(value){
        
        let root = this.root
-       while (root !==null){
+       while (root !=null){
         
         if (root.data== value){
             return true
@@ -53,7 +53,34 @@ class Tree{
        return false
     }
     insert(value){
-        
+        let temp = new Node(value)
+        let root = this.root
+        if(root == null ){return temp}
+
+        else{
+            while (root!= null){
+               if (root.data === value){
+                return root
+               }
+                if (value>root.data && root.right !== null){
+                    root = root.right
+                }
+                else if (value<root.data && root.left !== null){
+                    root = root.left
+                }
+                else{
+                    break
+                }
+            }
+            if (root.data > value) {
+        root.left = temp;
+    }
+    else {
+        root.right = temp;
+    }
+         
+        }
+    return root
     }
    
     
@@ -65,12 +92,3 @@ class Tree{
 
 export {Tree}
 
-
-
-//pseudoCode: 
-// recieve an array as parameter
-// if unsorted, sort array:
-//  1) take array, and split it in halves
-//  2) recurse to this function untill you have only a pair to operate
-//  3) change array index between both elementes
-//  4) return sorted array
