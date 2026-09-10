@@ -21,6 +21,7 @@ console.log(testClass.root)
  testClass.insert(88)
  testClass.insert(9)
  testClass.insert(0)
+testClass.remove(testClass.root,5)
 prettyPrint(testClass.root);
 console.log(testClass.includes(2))
 
