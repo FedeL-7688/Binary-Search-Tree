@@ -1,6 +1,8 @@
 import { Node } from "./node.js";
 
 class Tree {
+  queue = []
+
   constructor(array, root) {
     this.arr = array;
     this.root = root;
@@ -72,7 +74,9 @@ getSuccessor(curr) {
     return curr;
 }
 
- remove(root, x) {
+ remove(x) {
+
+  let root = this.root
     if (root === null)
         return root;
 
@@ -91,6 +95,47 @@ getSuccessor(curr) {
         root.right = this.remove(root.right, succ.data);
     }
     return root;
+}
+
+levelOrderForEach(cb){
+   
+    if (!cb){
+      throw new Error ("no callback function received as parameter")
+    }
+    let root = this.root
+    if (root === null) return root
+    let queue = [root]
+    let head = 0
+    
+    while(head < queue.length){
+    let curr = queue[head]
+  
+    
+    curr.data = cb(curr.data)
+    
+    if (curr.left !== null){
+      queue.push(curr.left)
+    }
+    if (curr.right !== null){
+      queue.push(curr.right)
+    }
+
+     head++
+    }
+  
+    return root
+    
+}
+
+inOrderForEach(cb){
+    if (!cb){
+      throw new Error ("no callback function received as parameter")
+    }
+    let root = this.root
+    if (root === null) return root
+    
+    
+
 }
 }
 

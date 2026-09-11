@@ -15,13 +15,18 @@ let prettyPrint = (node, prefix = "", isLeft = true) => {
   console.log(`${prefix}${isLeft ? "└── " : "┌── "}${node.data}`);
   prettyPrint(node.left, `${prefix}${isLeft ? "    " : "│   "}`, true);
 };
+
+
+function add10(value){
+  return value + 10
+}
 let rootNode =testClass.buildTree(sortedArr, 0, sortedArr.length-1);
 testClass.root = rootNode
 console.log(testClass.root)
  testClass.insert(88)
  testClass.insert(9)
  testClass.insert(0)
-testClass.remove(testClass.root,5)
+ testClass.levelOrderForEach(val =>console.log(val))
 prettyPrint(testClass.root);
 console.log(testClass.includes(2))
 
