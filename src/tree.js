@@ -1,7 +1,8 @@
+
 import { Node } from "./node.js";
 
 class Tree {
-  queue = []
+  queue = [];
 
   constructor(array, root) {
     this.arr = array;
@@ -67,77 +68,130 @@ class Tree {
     return root;
   }
 
-getSuccessor(curr) {
+  getSuccessor(curr) {
     curr = curr.right;
-    while (curr !== null && curr.left !== null)
-        curr = curr.left;
+    while (curr !== null && curr.left !== null) curr = curr.left;
     return curr;
-}
+  }
 
- remove(x) {
+  remove(x) {
+    let root = this.root;
+    if (root === null) return root;
 
-  let root = this.root
-    if (root === null)
-        return root;
-
-    if (root.data > x)
-        root.left = this.remove(root.left, x);
-    else if (root.data < x)
-        root.right = this.remove(root.right, x);
+    if (root.data > x) root.left = this.remove(root.left, x);
+    else if (root.data < x) root.right = this.remove(root.right, x);
     else {
-        if (root.left === null)
-            return root.right;
-        if (root.right === null)
-            return root.left;
+      if (root.left === null) return root.right;
+      if (root.right === null) return root.left;
 
-        const succ = this.getSuccessor(root);
-        root.data = succ.data;
-        root.right = this.remove(root.right, succ.data);
+      const succ = this.getSuccessor(root);
+      root.data = succ.data;
+      root.right = this.remove(root.right, succ.data);
     }
     return root;
-}
+  }
 
-levelOrderForEach(cb){
+  levelOrderForEach(cb) {
+    if (!cb) {
+      throw new Error("no callback function received as parameter");
+    }
+    let root = this.root;
+    if (root === null) return root;
+    let queue = [root];
+    let head = 0;
+
+    while (head < queue.length) {
+      let curr = queue[head];
+
+      curr.data = cb(curr.data);
+
+      if (curr.left !== null) {
+        queue.push(curr.left);
+      }
+      if (curr.right !== null) {
+        queue.push(curr.right);
+      }
+
+      head++;
+    }
+
+    return root;
+  }
+
+  recLevelOrderForEach(cb) {
+    if (!cb) {
+      throw new Error("no callback function received as parameter");
+    }
+    let root = this.root;
+    if (root === null) {
+      return root;
+    }
+    let queue = [root];
+    let head = 0;
+
+    function traverse(queue, head) {
+      if (head >= queue.length) return;
+
+      let curr = queue[head];
+      curr.data = cb(curr.data);
+
+      if (curr.left !== null) {
+        queue.push(curr.left);
+      }
+      if (curr.right !== null) {
+        queue.push(curr.right);
+      }
+      traverse(queue, head + 1);
+    }
+    traverse(queue, head);
+  }
+
+  inOrderForEach(cb) {
+    if (!cb) {
+      throw new Error("no callback function received as parameter");
+    }
+    let curr = this.root;
+    if (curr === null) return curr;
+
+   function traverse(node){
+    if (node.left!==null){traverse(node.left)}
+    node.data = cb(node.data)
+    if (node.right!==null){traverse(node.right)}
+   }
+   traverse(curr)
+  }
+
+    PreOrderForEach(cb) {
+    if (!cb) {
+      throw new Error("no callback function received as parameter");
+    }
+    let curr = this.root;
+    if (curr === null) return curr;
+
+   function traverse(node){
    
-    if (!cb){
-      throw new Error ("no callback function received as parameter")
-    }
-    let root = this.root
-    if (root === null) return root
-    let queue = [root]
-    let head = 0
-    
-    while(head < queue.length){
-    let curr = queue[head]
-  
-    
-    curr.data = cb(curr.data)
-    
-    if (curr.left !== null){
-      queue.push(curr.left)
-    }
-    if (curr.right !== null){
-      queue.push(curr.right)
-    }
+    node.data = cb(node.data)
+     if (node.left!==null){traverse(node.left)}
+    if (node.right!==null){traverse(node.right)}
+   }
+   traverse(curr)
+  }
 
-     head++
+   PostOrderForEach(cb) {
+    if (!cb) {
+      throw new Error("no callback function received as parameter");
     }
-  
-    return root
-    
-}
+    let curr = this.root;
+    if (curr === null) return curr;
 
-inOrderForEach(cb){
-    if (!cb){
-      throw new Error ("no callback function received as parameter")
-    }
-    let root = this.root
-    if (root === null) return root
-    
-    
-
-}
+   function traverse(node){
+   if (node.left!==null){traverse(node.left)}
+    if (node.right!==null){traverse(node.right)}
+    node.data = cb(node.data)
+     
+   }
+   traverse(curr)
+  }
 }
 
 export { Tree };
-
