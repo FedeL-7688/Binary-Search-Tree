@@ -1,4 +1,3 @@
-
 import { Node } from "./node.js";
 
 class Tree {
@@ -153,44 +152,107 @@ class Tree {
     let curr = this.root;
     if (curr === null) return curr;
 
-   function traverse(node){
-    if (node.left!==null){traverse(node.left)}
-    node.data = cb(node.data)
-    if (node.right!==null){traverse(node.right)}
-   }
-   traverse(curr)
+    function traverse(node) {
+      if (node.left !== null) {
+        traverse(node.left);
+      }
+      node.data = cb(node.data);
+      if (node.right !== null) {
+        traverse(node.right);
+      }
+    }
+    traverse(curr);
   }
 
-    PreOrderForEach(cb) {
+  PreOrderForEach(cb) {
     if (!cb) {
       throw new Error("no callback function received as parameter");
     }
     let curr = this.root;
     if (curr === null) return curr;
 
-   function traverse(node){
-   
-    node.data = cb(node.data)
-     if (node.left!==null){traverse(node.left)}
-    if (node.right!==null){traverse(node.right)}
-   }
-   traverse(curr)
+    function traverse(node) {
+      node.data = cb(node.data);
+      if (node.left !== null) {
+        traverse(node.left);
+      }
+      if (node.right !== null) {
+        traverse(node.right);
+      }
+    }
+    traverse(curr);
   }
 
-   PostOrderForEach(cb) {
+  PostOrderForEach(cb) {
     if (!cb) {
       throw new Error("no callback function received as parameter");
     }
     let curr = this.root;
     if (curr === null) return curr;
 
-   function traverse(node){
-   if (node.left!==null){traverse(node.left)}
-    if (node.right!==null){traverse(node.right)}
-    node.data = cb(node.data)
-     
-   }
-   traverse(curr)
+    function traverse(node) {
+      if (node.left !== null) {
+        traverse(node.left);
+      }
+      if (node.right !== null) {
+        traverse(node.right);
+      }
+      node.data = cb(node.data);
+    }
+    traverse(curr);
+  }
+
+  height(value) {
+    if (value == null) {
+      throw new Error("no valid value passed as argument");
+    }
+
+    function getHeight(node) {
+      if (node == null) {
+        return -1;
+      }
+      return 1 + Math.max(getHeight(node.left), getHeight(node.right));
+    }
+
+    function traverse(root, value) {
+      let curr = root;
+      if (curr == null) return;
+
+      if (curr.data > value) {
+        return traverse(curr.left, value);
+      } else if (curr.data < value) {
+        return traverse(curr.right, value);
+      } else if (curr.data == value) {
+        return getHeight(curr);
+      } else return undefined;
+    }
+    return traverse(this.root, value);
+  }
+
+  depth(value) {
+     if (value == null) {
+      throw new Error("no valid value passed as argument");
+    }
+
+  
+
+    function traverse(root, value,count = 0) {
+      let curr = root;
+      
+      if (curr == null) return;
+
+      if (curr.data > value) {
+        return traverse(curr.left, value,count+1);
+      } else if (curr.data < value) {
+        return traverse(curr.right, value,count+1);
+      } else if (curr.data == value) {
+        return count
+      } 
+      
+      else return undefined;
+    }
+  
+    return traverse(this.root, value,0);
   }
 }
 

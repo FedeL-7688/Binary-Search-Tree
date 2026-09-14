@@ -21,15 +21,16 @@ function add10(value){
  console.log(value)
  return value
 }
+
 let rootNode =tree.buildTree(sortedArr, 0, sortedArr.length-1);
 tree.root = rootNode
 console.log(tree.root)
  tree.insert(88)
  tree.insert(9)
  tree.insert(0)
-//  tree.levelOrderForEach(add10)
-//  tree.recLevelOrderForEach(add10)
  tree.PostOrderForEach(add10)
+ let value = 1
+console.log(`the depth of ${value} is: `,tree.depth(value))
 prettyPrint(tree.root);
 console.log(tree.includes(2))
 
