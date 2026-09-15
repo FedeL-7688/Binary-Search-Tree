@@ -73,8 +73,7 @@ class Tree {
     return curr;
   }
 
-  remove(x) {
-    let root = this.root;
+  remove(root = this.root,x) {
     if (root === null) return root;
 
     if (root.data > x) root.left = this.remove(root.left, x);
@@ -254,6 +253,43 @@ class Tree {
   
     return traverse(this.root, value,0);
   }
+
+  // isBalanced(curr = this.root){
+   
+  //   if (curr == null) return true
+
+  //   let leftHeight = curr.left ? this.height(curr.left.data) : -1;
+  //   let rightHeight = curr.right ? this.height(curr.right.data) : -1;
+  //   let currNodeBalanced = Math.abs(leftHeight-rightHeight)<=1
+
+  //   return currNodeBalanced && this.isBalanced(curr.left)&& this.isBalanced(curr.right)
+     
+    
+    
+  //   }
+
+
+
+
+isBalanced() {
+
+function checkBalance(curr) {
+  if (curr === null) return 0; 
+  let left = checkBalance(curr.left);
+  if (left === -1) return -1;
+  let right = checkBalance(curr.right);
+  if (right === -1) return -1; 
+
+  if (Math.abs(left - right) > 1) return -1;
+
+  return 1 + Math.max(left, right);
+}
+  return checkBalance(this.root) !== -1;
+}
+
+
+
+  
 }
 
 export { Tree };
