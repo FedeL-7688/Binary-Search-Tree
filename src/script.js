@@ -28,11 +28,15 @@ console.log(tree.root)
  tree.insert(88)
  tree.insert(9)
  tree.insert(0)
+ tree.insert(10)
+ tree.insert(-1)
+ tree.insert(12)
  tree.PostOrderForEach(add10)
  let value = 0
 console.log(`the depth of ${value} is: `,tree.depth(value))
  tree.remove(tree.root,9)
 console.log(tree.isBalanced())
+console.log(tree.reBalance())
 
 
 prettyPrint(tree.root);
